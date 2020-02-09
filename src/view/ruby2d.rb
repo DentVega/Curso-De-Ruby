@@ -1,98 +1,76 @@
-module Actions
-  def self.move_snake(state)
-    next_direction = state.curr_direction
-    next_position = calc_next_position(state)
-    # verificar que la siguiente cassilla sea valida
-    if position_is_food?(state, next_position)
-      grow_snake_to(state, next_position)
-    elsif position_is_valid?(state, next_position)
-      move_snake_to(state, next_position)
-    else
-      end_game(state)
+require "ruby2d"
+require_relative "../model/state"
+
+module View
+  class Ruby2dView
+
+    def initialize(app)
+      @pixel_size = 50
+      @app = app
+    end
+
+    def start(state)
+      extend Ruby2D::DSL
+      set(
+          title: "Snake", 
+          width: @pixel_size * state.grid.cols,
+          height: @pixel_size * state.grid.rows)
+      on :key_down do |event|
+        # A key was pressed
+        handle_key_event(event)
+      end
+      show
+    end
+
+    def render(state)
+      render_food(state)
+      render_snake(state)
+    end
+
+    private
+
+    def render_food(state)
+      @food.remove if @food
+      extend Ruby2D::DSL
+      food = state.food
+      @food = Square.new(
+        x: food.col * @pixel_size,
+        y: food.row * @pixel_size,
+        size: @pixel_size,
+        color: 'yellow'
+      )
+    end
+
+    def render_snake(state)
+      @snake_positions.each(&:remove) if @snake_positions
+      extend Ruby2D::DSL
+      snake = state.snake
+      @snake_positions = snake.positions.map do |pos|
+        Square.new(
+          x: pos.col * @pixel_size,
+          y: pos.row * @pixel_size,
+          size: @pixel_size,
+          color: 'green'
+        )
+      end
+    end
+
+    def handle_key_event(event)
+      case event.key
+      when "up"
+        # cambiar direccion hacia arriba
+        @app.send_action(:change_direction, Model::Direction::UP)
+      when "down"
+        # cambiar direccion hacia abajo
+        @app.send_action(:change_direction, Model::Direction::DOWN)
+      when "left"
+        # cambiar direccion hacia izquierda
+        @app.send_action(:change_direction, Model::Direction::LEFT)
+      when "right"
+        # cambiar direccion hacia derecha
+        @app.send_action(:change_direction, Model::Direction::RIGHT)
+      end
     end
   end
 
-  def self.change_direction(state, direction)
-    if next_direction_is_valid?(state, direction)
-      state.curr_direction = direction
-    else
-      puts "Invalid direction"
-    end
-    state
-  end
-
-  private
-
-  def self.position_is_food?(state, next_position)
-    state.food.row == next_position.row && state.food.col == next_position.col
-  end
-
-  def self.grow_snake_to(state, next_position)
-    new_positions = [next_position] + state.snake.positions
-    state.snake.positions = new_positions
-    state
-  end
-
-  def self.calc_next_position(state)
-    curr_position = state.snake.positions.first
-    case state.curr_direction
-    when Model::Direction::UP
-      # decrementar fila
-      return Model::Coord.new(
-          curr_position.row - 1, 
-          curr_position.col)
-    when Model::Direction::RIGHT
-      # incrementar col
-      return Model::Coord.new(
-          curr_position.row, 
-          curr_position.col + 1)
-    when Model::Direction::DOWN
-      # incrementar fila
-      return Model::Coord.new(
-          curr_position.row + 1,
-          curr_position.col)
-    when Model::Direction::LEFT
-      # decrementar col
-      return Model::Coord.new(
-          curr_position.row, 
-          curr_position.col - 1)
-    end
-  end
-
-  def self.position_is_valid?(state, position)
-    # verificar q este en la grilla
-    is_invalid = ((position.row >= state.grid.rows ||
-      position.row < 0) || 
-      (position.col >= state.grid.cols ||
-      position.col < 0))
-    return false if is_invalid
-    # verificar q no este superponiendo a la serpiente
-    return !(state.snake.positions.include? position)
-  end
-
-  def self.move_snake_to(state, next_position)
-    new_positions = [next_position] + state.snake.positions[0...-1]
-    state.snake.positions = new_positions
-    state
-  end
-
-  def self.end_game(state)
-    state.game_finished = true
-    state
-  end
-
-  def self.next_direction_is_valid?(state, direction)
-    case state.curr_direction
-    when Model::Direction::UP
-      return true if direction != Model::Direction::DOWN
-    when Model::Direction::DOWN
-      return true if direction != Model::Direction::UP
-    when Model::Direction::RIGHT
-      return true if direction != Model::Direction::LEFT
-    when Model::Direction::LEFT
-      return true if direction != Model::Direction::RIGHT
-    end
-
-    return false
-  end
 end
