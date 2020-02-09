@@ -1,0 +1,26 @@
+Programación Orientada a Objetos en Ruby: Módulos
+Una buena práctica de programación es la modularización del código, lo que algunos llaman alta cohesión, lo que quiere decir que las clases o funcionalidades que hacen cosas similares estén dentro del mismo contenedor; en Ruby se utilizan los módulos para ello.
+
+Ejemplo
+- Persona.rb
+- Model.rb
+
+
+
+- Uso de la clase
+
+#persona = Persona.new
+persona = Persona.new("Brian", 26)
+
+Para no escribir tanto codigo al crear una clase ruby nos ofrece algunos macros
+
+	- attr_accessor #para declarar propiedades de la calse
+
+
+class Persona
+	attr_accessor :name, :age
+end
+
+class Persona < Struct.new(:name, :age)
+	attr_accessor :name, :age
+end

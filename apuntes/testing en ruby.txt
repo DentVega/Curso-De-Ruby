@@ -1,0 +1,26 @@
+Testing en Ruby
+El testing es una práctica de programación con la que podemos escribir código que va a probar el código de nuestra aplicación para garantizar que con cada cambio que le agreguemos al proyecto, no vamos a hacer que funcionalidades anteriores se vayan a ver afectadas por este nuevo cambio.
+
+En Ruby existe una librería que nos ayuda con esto, se llama MiniTest
+
+Ejemplo:
+
+class Caluclator
+	def sum(a, b)
+		a + b
+	end
+end
+
+require "byebug"
+
+class = Calculator.new
+test_sum = {
+	[1,2] => 3,
+	[5,6] => 11,
+}
+test.sum.each do |input, expect_result|
+	byebug
+	if calc.sum(input[0], input[1])
+		raise "Test failed for input #{input}. Expected ressul#{expect_result}"
+	end
+end
