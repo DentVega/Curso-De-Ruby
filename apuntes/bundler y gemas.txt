@@ -1,0 +1,26 @@
+Bundler y gemas (rvm)
+
+Instalar bundle
+	gem install bundler
+
+ver la version de bundle
+	bundle --version
+
+Crear un proyeco de snake
+	bundle init
+
+Esto crar el archivo GemFile que es el npm de ruby
+
+https://www.ruby-toolbox.com
+
+ejemplo de uso de gema
+	gem 'faker', '~> 1.9.*'
+
+Una vez creado el GenFile y poner las gemas usar el comando 
+	bundle install
+
+para installar las gemas
+
+
+bundle exec irb /estamos asegurandonos de usar las gemas que especificamos en la carpeta
+irb busca la gema que esta disponible
