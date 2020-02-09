@@ -1,0 +1,402 @@
+Curso de Ruby
+
+	Convencion en minuscula y una barra baja cuenta_cliente
+
+x = 5 declarar una varible
+
+- Para saber lo metodos de un objeto usamos .methods
+- Para saber que tipo de clase son usamos .class
+- para saber si un numero es impar .odd?
+- Para saber si un metodo es par .even?
+
+Operaciones
+- Suma
+- Resta
+- Divicion
+	Si no queremos el comportamient 4/5 = 0 (por que ruby convierte los resultados en entero)
+	Para evitar eso usamos un decimal en la operacion 4/5.0 = 0.8
+- Multiplicacion
+- Modulo
+- Exponenciacion 2**3
+- Decimales f= 3.4
+
+================================================
+Tipos de Datos 2: Strings
+	- Se declara entre comillas dobles o comillas simples y la notacion %q(texto) o $Q(texto)
+	- Interpolacion devariable 
+		nombre = "Brian"
+		saludo = "Hola #{nombre}"
+	- Si usamos comillas sencillas desactivamos la interpolacion
+	.upcase pner en mayuscyla
+	.downcase poner en minuscula
+	.leght
+	.swapcase invierte el casin de cada caracter
+	.include? "g" ve si tiene el caracter g
+	.strip para eliminar espacios al final y al principio
+	.empty? preguntar si un string esta vacio
+	.gsub("Simon", "Brian") remplaza el primer parametro en un string con el segundo
+
+	nombrer = "Brian"
+- Contacatenacion
+	nombbre + "Brian"
+- Multiplicar un String
+	nombre * 100
+- .gsub
+	nombre = "Brian Vega"
+	nombre.gsub("Brian","Dennis")
+
+	nombre_2 = nombre.gsub("Brian","Dennis")
+	=> "Brian Vega"
+- Uso del simbolo !
+	nombre.gsub!("Brian","Dennis")
+	cambiara el valor de la variable
+================================================
+Typos de datos 3: Symbols
+Son usados como enums o constantes
+Un simbolo sirve para dar un identificador a una variable y darle ese mismo identificador a otro
+de esta menera ambos ocuparan el mismo espacio de memoria
+
+nombre = "Brian"
+nombre_2 = "Brian"
+
+nombre.object_id tiene el id unico que tiene una variable
+
+Ejemplo: 
+	color = :rojo
+	color_2 = :rojo
+	color.object_id
+	12345
+	color_2.object_id
+	12345
+================================================================================================
+Tiposss de datos IV: Arrays
+["q","s","v", "g"].class
+=> Array
+
+	- letras.size cantida dde objetos en el arreglo
+	- letras[0] acceder a un elemento del array
+	- letras[-1] nos devuleve el primer elemento desde atras hacia adelante
+	- letras[100] manda nil si no hay un objeto en esa posicion
+	- letras.include? "q"
+	- letras.first para obtener el primer elemento
+	- letras.last para obtener el ultimo elemento
+	- letras.count { |x| x == "q" } es como una arrow function 
+	- letras.map { |x| x =*2} devuelve otro arreflo donde  transformar cada unos de los elementos
+	- letras.select ? { |x| x.odd? } es el filter de ruby
+	- letra.min retorna el elemento mas pequeño
+	- letra.max retorna el elemento mas grande
+	- letra.sum que retorna la suma de todos los elementos del arreglo
+El array no tiene ul tipo especifico
+
+
+"Hola mundo".split(" ") surve para partir un string por un texto en este caso = 2
+"Hola Mundo".split(" ").map { |x| x.upcase }
+"Hola Mundo".split(" ").map { |x| x.upcase }.join("\n")
+
+- Organizar arreglos
+	- letras.sort dara una nueva lista ordenada
+	- letras.sort! cambiara la lista a una ordenada
+
+
+================================================================================================
+
+Tipos de Datos V: Hashes
+	- capitaless = {}
+
+	Metodos de Hashes
+
+  - declarar el contenido dos opciones, capitales = { "Colombia" => "Bogota" }
+
+  - capitales["Mexico"] = "Ciudad de Mexico"  agregar nuevos valores
+
+  - capitales["Mexico"] para obtener un valor especifico
+
+  - capitales.size cantidad de parejas
+
+  - capitales.empty? si esta vacion
+
+  - capitales.has_value? "Ciudad de Mexico" verifica si existe el valor preguntado
+
+  - capitales.has.key? "Mexico" verifica si existe la llave preguntada
+
+  - capitales.invert cambia las variables por los valoress y vicebersa 
+
+  - capitales.merge({"Marte", "Musk"}) une dos hashes
+
+  - capitales.transform_values  { |x| x.downcase }
+
+  - capitales.map { |k,v| "La capital de #{k} es #{value}" }
+
+
+  - podemos crear un hash a partir de una pareja de arreglo de arreglos
+  		[["Brian", 13]].to_h
+
+================================================================================================
+Uso de condicionales
+
+is_authenticated = false
+
+if condicion 
+
+elsif conficcion
+
+else
+
+end
+
+if is_authenticated
+	puts "Example"
+else
+	elsif conficcion
+end
+
+- correr con ruby condicionales.rb
+
+================================================================================================
+Ciclos
+
+	while  condicion do
+	 purts "hola"
+	end
+
+	lopp do
+		putss "Ejemplo"
+		break if x > 5
+		x += 1
+	end
+
+	for i in 1..10 do 
+		puts "Hola #{i}"
+	end
+
+	[1.2.3].each { |x| puts "Hola #{x}" }
+	3.times { |x| puts "Hola #{x}"} para ralizar interacciones = 0 1 2 3 
+================================================================================================
+Rangos (1..6)
+(1..3).to_a
+ 
+#es la secuencia 1, 2, 3
+
+(1...5).to_a
+ 
+#equivale a 1, 2, 3, 4
+
+================================================================================================
+Regex
+
+
+is_gmail_regex = /\w+@gmail.com/ regex si es de google gmail
+
+"brian@gmail.com".match lanzara nil si no hace match
+
+================================================================================================
+Procs y lambdas
+
+Procs o lamba es una clase especial que hace una referencia a un metodo, son muy utilizados para hacer programacion funcional
+
+saludar = Proc.new { |nombre| puts "Hola #{nombre}"}
+
+saludar.class
+=> Proc
+
+Ejemplo 1
+saludar.call("Brian")
+Hola Brian
+=> nil
+
+================================================================================================
+
+Programación Orientada a Objetos en Ruby Comenzando la creación de nuestra clase
+
+class Persona
+
+	#Para declarar metodos de clase se usa slef
+	def self..suggested_names
+		["Brian", "Vega"]
+	end
+
+	#constructor
+	def initialize(name, age)
+		#para declarar variables de instancia se usa arroba
+		@name = name
+		@age = age
+	end
+
+	#metodos getter
+	def name
+		return @name
+	end
+
+	#metodos getter
+	def name2
+		#ruby  siempre retorna el la ultima linea de codigo
+		@name
+	end
+
+	#setter persona.name = "Brian"
+	def name=(name)
+		@name = name
+		self
+	end
+
+	def age=(age)
+		@age = age
+		self #referencia al mismo objeto
+	end
+
+end
+
+- Uso de la clase
+
+#persona = Persona.new
+persona = Persona.new("Brian", 26)
+
+Para no escribir tanto codigo al crear una clase ruby nos ofrece algunos macros
+
+	- attr_accessor #para declarar propiedades de la calse
+
+
+class Persona
+	attr_accessor :name, :age
+end
+
+class Persona < Struct.new(:name, :age)
+	attr_accessor :name, :age
+end
+
+
+================================================================================================
+
+Programación Orientada a Objetos en Ruby: Módulos
+Una buena práctica de programación es la modularización del código, lo que algunos llaman alta cohesión, lo que quiere decir que las clases o funcionalidades que hacen cosas similares estén dentro del mismo contenedor; en Ruby se utilizan los módulos para ello.
+
+Ejemplo
+# Modules
+
+module Model
+  class Company
+  end
+  class Employee
+  end
+end
+
+module Reports
+  class ExcelReporter
+    def build
+      puts "Generating excel report"
+    end
+  end
+
+  class EmailReporter
+  end
+end
+
+excel_report = Reports::ExcelReporter.new
+excel_report.build
+
+================================================================================================
+
+Concurrencua vs paralelismo
+
+Aunque el GIL no permite que multiples threads se ejecuten, sí permite cambiar de contexto cuando se esta realizando una operación por fuera del interprete como operaciones de lectura o escritura. Como estas operaciones suceden por fuera del interprete, cruby permite cambiar de contexto para ejecutar otro thread mientras estas operaciones terminan y de esta manera se puede hacer programacion concurrente.
+
+Otros interpretes como JRuby y Rubinius no tienen un GIL así que permiten ejecución en paralelo.
+
+
+================================================================================================
+
+Bundler y gemas (rvm)
+
+Instalar bundle
+	gem install bundler
+
+ver la version de bundle
+	bundle --version
+
+Crear un proyeco de snake
+	bundle init
+
+Esto crar el archivo GemFile que es el npm de ruby
+
+https://www.ruby-toolbox.com
+
+ejemplo de uso de gema
+	gem 'faker', '~> 1.9.*'
+
+Una vez creado el GenFile y poner las gemas usar el comando 
+	bundle install
+
+para installar las gemas
+
+
+bundle exec irb /estamos asegurandonos de usar las gemas que especificamos en la carpeta
+irb busca la gema que esta disponible
+
+================================================================================================
+
+Testing en Ruby
+El testing es una práctica de programación con la que podemos escribir código que va a probar el código de nuestra aplicación para garantizar que con cada cambio que le agreguemos al proyecto, no vamos a hacer que funcionalidades anteriores se vayan a ver afectadas por este nuevo cambio.
+
+En Ruby existe una librería que nos ayuda con esto, se llama MiniTest
+
+Ejemplo:
+
+class Caluclator
+	def sum(a, b)
+		a + b
+	end
+end
+
+require "byebug"
+
+class = Calculator.new
+test_sum = {
+	[1,2] => 3,
+	[5,6] => 11,
+}
+test.sum.each do |input, expect_result|
+	byebug
+	if calc.sum(input[0], input[1])
+		raise "Test failed for input #{input}. Expected ressul#{expect_result}"
+	end
+end
+
+
+================================================================================================
+Testing con MiniTest
+
+require "minitest/autorun"
+
+class Calculator
+  def sum(a, b)
+    a + b
+  end
+
+  def substract(a, b)
+    a - b
+  end
+end
+
+class TestCalculator < Minitest::Test
+
+  def setup
+    @calc = Calculator.new
+  end
+
+  def test_sum_positives
+    result = @calc.sum(1, 3)
+    assert_equal result, 4
+  end
+
+  def test_sum_negatives
+    result = @calc.sum(-1, -3)
+    assert_equal result, -4
+  end
+
+  def test_sum_negatives
+    result = @calc.sum(1, -3)
+    assert_equal result, -2
+  end
+end
+
+================================================================================================
