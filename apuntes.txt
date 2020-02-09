@@ -302,36 +302,6 @@ Aunque el GIL no permite que multiples threads se ejecuten, sí permite cambiar 
 
 Otros interpretes como JRuby y Rubinius no tienen un GIL así que permiten ejecución en paralelo.
 
-
-================================================================================================
-
-Bundler y gemas (rvm)
-
-Instalar bundle
-	gem install bundler
-
-ver la version de bundle
-	bundle --version
-
-Crear un proyeco de snake
-	bundle init
-
-Esto crar el archivo GemFile que es el npm de ruby
-
-https://www.ruby-toolbox.com
-
-ejemplo de uso de gema
-	gem 'faker', '~> 1.9.*'
-
-Una vez creado el GenFile y poner las gemas usar el comando 
-	bundle install
-
-para installar las gemas
-
-
-bundle exec irb /estamos asegurandonos de usar las gemas que especificamos en la carpeta
-irb busca la gema que esta disponible
-
 ================================================================================================
 
 Testing en Ruby
@@ -361,42 +331,5 @@ test.sum.each do |input, expect_result|
 	end
 end
 
-
-================================================================================================
-Testing con MiniTest
-
-require "minitest/autorun"
-
-class Calculator
-  def sum(a, b)
-    a + b
-  end
-
-  def substract(a, b)
-    a - b
-  end
-end
-
-class TestCalculator < Minitest::Test
-
-  def setup
-    @calc = Calculator.new
-  end
-
-  def test_sum_positives
-    result = @calc.sum(1, 3)
-    assert_equal result, 4
-  end
-
-  def test_sum_negatives
-    result = @calc.sum(-1, -3)
-    assert_equal result, -4
-  end
-
-  def test_sum_negatives
-    result = @calc.sum(1, -3)
-    assert_equal result, -2
-  end
-end
 
 ================================================================================================
